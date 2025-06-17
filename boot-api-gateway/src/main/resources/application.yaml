@@ -1,12 +1,12 @@
 server:
-  port: 8081
+  port: 8080
 router:
   order-service:
     endpoints:
-      - 'http://localhost:8082'
+      - 'http://order-service:8080'
   payment-service:
     endpoints:
-      - 'http://localhost:8084'
+      - 'http://payment-service:8080'
 kafka:
   order-push:
     topic: 'order_push'
