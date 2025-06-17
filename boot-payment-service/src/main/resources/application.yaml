@@ -1,0 +1,30 @@
+server:
+  # tcp-ip порт, на котором будет доступен web-сервер
+  port: 8084
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
+db:
+  url: "jdbc:postgresql://localhost:5432/postgres?encoding=UTF8"
+  schema: shop
+  user: postgres
+  password: postgres
+  maxPoolSize: 4
+kafka:
+  bootstrap-servers: "localhost:9092"
+  request:
+    topic: 'pay_request'
+    delayOnErrorMillis: 1_000
+    pollIntervalMillis: 1_000
+    consumer:
+      "[bootstrap.servers]": ${kafka.bootstrap-servers}
+      "[client.id]": 'payment-service-${server.port}'
+      "[group.id]": 'payment-service'
+      "[max.pool.size]": 2
+  response:
+    topic: 'pay_response'
+    producer:
+      "[bootstrap.servers]": ${kafka.bootstrap-servers}
+      "[client.id]": 'payment-service-${server.port}'

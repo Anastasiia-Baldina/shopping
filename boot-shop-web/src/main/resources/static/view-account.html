@@ -1,0 +1,56 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Баланс кошелька</title>
+</head>
+<body>
+<h3>Rest запрос на просмотр кошелька</h3>
+<form id="view_account">
+    <input type="text" id="userId" placeholder="Имя заказчика">
+    <button type="submit">Получить баланс</button>
+</form>
+
+<h3>Результат REST</h3>
+<div id="restResult"></div>
+
+<script>
+    function clearResults() {
+        document.getElementById('restResult').textContent = "";
+    }
+
+    function showRestResult(result) {
+        console.log("Успех:", result)
+        view = document.getElementById('restResult');
+        view.textContent = "Успешно:" + JSON.stringify(result);
+    }
+
+    function showRestError(result) {
+        console.log("Error:", result)
+        view = document.getElementById('restResult');
+        view.textContent = "Ошибка:" + JSON.stringify(result);
+    }
+
+    document.getElementById('view_account').addEventListener('submit', function(e) {
+       e.preventDefault();
+       clearResults();
+
+        const data = {
+            value: document.getElementById('userId').value
+        };
+
+        console.log("post:" + JSON.stringify(data));
+
+        fetch('http://localhost:8081/pay/findByUserId', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => showRestResult(data))
+        .catch(error => showRestError(error));
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/boot-api-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/boot-api-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/boot-order-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/boot-order-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/boot-payment-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/boot-payment-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/boot-shop-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/boot-shop-web/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/boot-web-shopaholic/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/boot-web-shopaholic/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shopaholic-dto/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shopaholic-dto/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shopaholic-kafka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shopaholic-kafka/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shopaholic-tx/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shopaholic-tx/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shopaholic-utils/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shopaholic-utils/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

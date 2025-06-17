@@ -1,0 +1,19 @@
+server:
+  port: 8081
+router:
+  order-service:
+    endpoints:
+      - 'http://localhost:8082'
+  payment-service:
+    endpoints:
+      - 'http://localhost:8084'
+kafka:
+  order-push:
+    topic: 'order_push'
+    delayOnErrorMillis: 1_000
+    pollIntervalMillis: 1_000
+    consumer:
+      "[bootstrap.servers]": "localhost:9092"
+      "[client.id]": 'gateway-service'
+      "[group.id]": 'gateway-service'
+      "[max.pool.size]": 2

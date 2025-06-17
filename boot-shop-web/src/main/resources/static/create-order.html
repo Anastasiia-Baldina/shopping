@@ -1,0 +1,118 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать заказ</title>
+    <script src="js/sockjs.min.js"></script>
+    <script src="js/stomp.min.js"></script>
+</head>
+<body>
+<h3>Rest запрос на создание заказа</h3>
+<form id="create_order">
+    <input type="text" id="userId" placeholder="Имя заказчика">
+    <input type="text" id="description" placeholder="Описание заказа">
+    <input type="number" id="amount" placeholder="Стоимость заказа">
+    <button type="submit">Создать заказ</button>
+</form>
+
+<h3>Результат REST</h3>
+<div id="restResult"></div>
+<h3>Асинхронный результат WebSocket (STOMP)</h3>
+<div id="wsResult"></div>
+
+<script>
+    let stompClient = null;
+
+    function clearResults() {
+        document.getElementById('restResult').textContent = "";
+        document.getElementById('wsResult').textContent = "";
+    }
+
+    function showRestResult(result) {
+        console.log("Успех:", result)
+        view = document.getElementById('restResult');
+        view.textContent = "Успешно:" + JSON.stringify(result);
+    }
+
+    function showRestError(result) {
+        console.log("Error:", result)
+        view = document.getElementById('restResult');
+        view.textContent = "Ошибка:" + JSON.stringify(result);
+    }
+
+    function showWsResult(result) {
+        console.log("Успех:", result)
+        view = document.getElementById('wsResult');
+        view.textContent = "Успешно:" + result;
+    }
+
+    function showWsError(result) {
+        console.log("Error:", result)
+        view = document.getElementById('wstResult');
+        view.textContent = "Ошибка:" + result;
+    }
+
+    function disconnect() {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+        }
+        console.log("Disconnected");
+    }
+
+    function connect() {
+        const userId = document.getElementById('userId').value;
+        const socket = new SockJS('http://localhost:8081/ws?userId=' + userId);
+        stompClient = Stomp.over(socket);
+
+        stompClient.debug = function(str) {
+            console.log('STOMP: ' + str);
+        };
+
+        const headers = {
+            'userId': userId,
+            'heart-beat': '10000,10000'
+        };
+
+        stompClient.connect(headers,
+            function(frame) {
+                console.log('Connected: ' + frame);
+
+                stompClient.subscribe('/user/queue/messages',
+                    function(message) {
+                        showWsResult(message.body);
+                        disconnect();
+                    });
+            },
+            function(error) {
+                showWsError(message.body);
+                disconnect();
+            });
+    }
+
+    document.getElementById('create_order').addEventListener('submit', function(e) {
+       e.preventDefault();
+       clearResults();
+
+       const data = {
+          userId: {
+            value: document.getElementById('userId').value
+          },
+          description: document.getElementById('description').value,
+          amount: document.getElementById('amount').value
+        };
+
+        console.log("post:" + JSON.stringify(data));
+        connect();
+        fetch('http://localhost:8081/order/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => showRestResult(data))
+        .catch(error => showRestError(error));
+    });
+</script>
+</body>
+</html>
