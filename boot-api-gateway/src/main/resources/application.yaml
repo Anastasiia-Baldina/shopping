@@ -13,7 +13,7 @@ kafka:
     delayOnErrorMillis: 1_000
     pollIntervalMillis: 1_000
     consumer:
-      "[bootstrap.servers]": "localhost:9092"
+      "[bootstrap.servers]": "kafka:9092"
       "[client.id]": 'gateway-service'
       "[group.id]": 'gateway-service'
       "[max.pool.size]": 2

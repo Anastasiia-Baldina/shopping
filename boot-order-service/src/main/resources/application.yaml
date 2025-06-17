@@ -12,7 +12,7 @@ db:
   password: postgres
   maxPoolSize: 4
 kafka:
-  bootstrap-servers: "localhost:9092"
+  bootstrap-servers: "kafka:9092"
   pay-response:
     topic: 'pay_response'
     delayOnErrorMillis: 1_000
