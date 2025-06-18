@@ -1,7 +1,14 @@
 package ru.vse.shop.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class DepositDto {
+    @NotNull
     private UserIdDto userId;
+    @Min(value = 1)
+    @Max(value = 1_000_000)
     private int amount;
 
     public UserIdDto getUserId() {

@@ -5,9 +5,9 @@ WORKDIR /app
 COPY . .
 
 # 2. Собираем только нужный модуль с зависимостями
-RUN ./mvnw package -pl boot-shop-web -am -DskipTests
+RUN ./mvnw package -pl boot-api-gateway -am -DskipTests
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
-COPY --from=builder /app/boot-shop-web/target/*.jar app.jar
+COPY --from=builder /app/boot-api-gateway/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

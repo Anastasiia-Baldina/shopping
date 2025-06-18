@@ -1,10 +1,17 @@
 package ru.vse.shop.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 public class OrderDto {
+    @NotEmpty
     private String orderId;
+    @NotNull
     private UserIdDto userId;
+    @NotEmpty
     private String description;
     private int amount;
+    @NotNull
     private OrderStatusDto status;
 
     public String getOrderId() {

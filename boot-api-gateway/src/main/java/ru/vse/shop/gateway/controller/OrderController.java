@@ -39,7 +39,11 @@ public class OrderController {
     @PostMapping(value = "/findByUserId", produces = "application/json")
     @ResponseBody
     public OrderListDto findByUserId(@RequestBody @Valid UserIdDto userIdDto) {
+        log.info("Request /order/findByUserId: {}", Json.toJson(userIdDto));
         var url = endpointBalancer.nextEndpoint() + "/order/findByUserId";
-        return restTemplate.postForObject(url, userIdDto, OrderListDto.class);
+        var res = restTemplate.postForObject(url, userIdDto, OrderListDto.class);
+        log.info("Response /order/findByUserId: {}", Json.toJson(res));
+
+        return res;
     }
 }

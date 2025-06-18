@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.client.RestTemplate;
+import ru.vse.shop.gateway.controller.ErrorHandlerController;
 import ru.vse.shop.gateway.controller.OrderController;
 import ru.vse.shop.gateway.controller.PaymentController;
 import ru.vse.shop.gateway.kafka.PushDtoMessageHandler;
@@ -79,5 +80,10 @@ public class ApplicationConfiguration {
                 orderPushKafkaListenerProperties(),
                 pushDtoMessageHandler(),
                 PushDto.class);
+    }
+
+    @Bean
+    ErrorHandlerController errorHandlerController() {
+        return new ErrorHandlerController();
     }
 }

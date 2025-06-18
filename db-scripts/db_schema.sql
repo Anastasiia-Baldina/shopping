@@ -1,4 +1,4 @@
-create schema if not exists shop
+create schema if not exists shop;
 
 create table if not exists shop.account (
 	user_id		varchar(64)		not null,

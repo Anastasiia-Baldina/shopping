@@ -41,14 +41,22 @@ public class PaymentController {
     @ResponseBody
     @PostMapping(value = "/deposit", produces = "application/json")
     public AccountDto deposit(@RequestBody DepositDto depositDto) {
+        log.info("Request /pay/deposit: {}", Json.toJson(depositDto));
         var url = endpointBalancer.nextEndpoint() + "/pay/deposit";
-        return restTemplate.postForObject(url, depositDto, AccountDto.class);
+        var res = restTemplate.postForObject(url, depositDto, AccountDto.class);
+        log.info("Response /pay/deposit: {}", Json.toJson(res));
+
+        return res;
     }
 
     @ResponseBody
     @PostMapping(value = "/findByUserId", produces = "application/json")
     public AccountDto findByUserId(@RequestBody UserIdDto userIdDto) {
+        log.info("Request /pay/findByUserId: {}", Json.toJson(userIdDto));
         var url = endpointBalancer.nextEndpoint() + "/pay/findByUserId";
-        return restTemplate.postForObject(url, userIdDto, AccountDto.class);
+        var res = restTemplate.postForObject(url, userIdDto, AccountDto.class);
+        log.info("Response /pay/findByUserId: {}", Json.toJson(res));
+
+        return res;
     }
 }

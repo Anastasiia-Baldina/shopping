@@ -1,6 +1,11 @@
 package ru.vse.shop.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class AccountDto {
+    @NotNull
     private UserIdDto userId;
     private int balance;
 

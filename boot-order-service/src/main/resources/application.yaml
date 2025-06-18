@@ -5,6 +5,16 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health
+
 db:
   url: "jdbc:postgresql://postgres:5432/appdb?encoding=UTF8"
   schema: shop
@@ -18,17 +28,17 @@ kafka:
     delayOnErrorMillis: 1_000
     pollIntervalMillis: 1_000
     consumer:
-      "[bootstrap.servers]": ${kafka.bootstrap-servers}
+      "[bootstrap.servers]": "${kafka.bootstrap-servers}"
       "[client.id]": 'order-service-${server.port}'
       "[group.id]": 'order-service'
       "[max.pool.size]": 2
   pay-request:
     topic: 'pay_request'
     producer:
-      "[bootstrap.servers]": ${kafka.bootstrap-servers}
+      "[bootstrap.servers]": "${kafka.bootstrap-servers}"
       "[client.id]": 'order-service-${server.port}'
   order-push:
     topic: 'order_push'
     producer:
-      "[bootstrap.servers]": ${kafka.bootstrap-servers}
+      "[bootstrap.servers]": "${kafka.bootstrap-servers}"
       "[client.id]": 'order-service-${server.port}'

@@ -1,5 +1,14 @@
 server:
   port: 8080
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health
 router:
   order-service:
     endpoints:
