@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -92,16 +93,19 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    @Profile("!test")
     KafkaPublisher<PayResponseDto> paymentDtoKafkaResponder() {
         return new KafkaPublisher<>(kafkaResponderProperties());
     }
 
     @Bean
+    @Profile("!test")
     MessageHandler<PayRequestDto> paymentDtoMessageHandler() {
         return new PaymentHandler(paymentDtoKafkaResponder(), accountService());
     }
 
     @Bean
+    @Profile("!test")
     KafkaListener<PayRequestDto> paymentDtoKafkaListener() {
         return new KafkaListener<>(
                 kafkaListenerProperties(),

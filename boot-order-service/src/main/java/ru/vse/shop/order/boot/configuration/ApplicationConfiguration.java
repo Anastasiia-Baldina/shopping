@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.vse.shop.kafka.KafkaListener;
@@ -82,6 +83,7 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    @Profile("!test")
     KafkaPublisher<PayRequestDto> payRequestDtoKafkaPublisher() {
         return new KafkaPublisher<>(payRequestKafkaPublisherProperties());
     }
@@ -97,16 +99,19 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    @Profile("!test")
     KafkaPublisher<PushDto> orderDtoKafkaResponder() {
         return new KafkaPublisher<>(orderPushKafkaPublisherProperties());
     }
 
     @Bean
+    @Profile("!test")
     PaymentResponseHandler paymentResponseHandler() {
         return new PaymentResponseHandler(orderRepository(), orderDtoKafkaResponder());
     }
 
     @Bean
+    @Profile("!test")
     KafkaListener<PayResponseDto> payResponseDtoKafkaListener() {
         return new KafkaListener<>(
                 payResponseKafkaListenerProperties(),

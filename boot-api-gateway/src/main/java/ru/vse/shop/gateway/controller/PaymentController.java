@@ -40,22 +40,28 @@ public class PaymentController {
 
     @ResponseBody
     @PostMapping(value = "/deposit", produces = "application/json")
-    public AccountDto deposit(@RequestBody DepositDto depositDto) {
+    public AccountDto deposit(@RequestBody @Valid DepositDto depositDto) {
         log.info("Request /pay/deposit: {}", Json.toJson(depositDto));
         var url = endpointBalancer.nextEndpoint() + "/pay/deposit";
         var res = restTemplate.postForObject(url, depositDto, AccountDto.class);
         log.info("Response /pay/deposit: {}", Json.toJson(res));
+        if (res == null) {
+            throw new IllegalStateException("Кошелек не найден для userId=" + depositDto.getUserId().getValue());
+        }
 
         return res;
     }
 
     @ResponseBody
     @PostMapping(value = "/findByUserId", produces = "application/json")
-    public AccountDto findByUserId(@RequestBody UserIdDto userIdDto) {
+    public AccountDto findByUserId(@RequestBody @Valid UserIdDto userIdDto) {
         log.info("Request /pay/findByUserId: {}", Json.toJson(userIdDto));
         var url = endpointBalancer.nextEndpoint() + "/pay/findByUserId";
         var res = restTemplate.postForObject(url, userIdDto, AccountDto.class);
         log.info("Response /pay/findByUserId: {}", Json.toJson(res));
+        if (res == null) {
+            throw new IllegalStateException("Кошелек не найден для userId=" + userIdDto.getValue());
+        }
 
         return res;
     }

@@ -29,11 +29,7 @@ public class PaymentController {
     @ResponseBody
     @PostMapping(value = "/deposit", produces = "application/json")
     public AccountDto deposit(@RequestBody DepositDto depositDto) {
-        var res = accountService.makeDeposit(depositDto);
-        if (res == null) {
-            throw new AccountNotFoundException(depositDto.getUserId().getValue());
-        }
-        return res;
+        return accountService.makeDeposit(depositDto);
     }
 
     @ResponseBody

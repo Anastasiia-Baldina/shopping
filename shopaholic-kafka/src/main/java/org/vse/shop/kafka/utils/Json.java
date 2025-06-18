@@ -10,6 +10,9 @@ public final class Json {
     }
 
     public static String toJson(Object obj) {
+        if (obj == null) {
+            return null;
+        }
         try {
             return MAPPER.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
@@ -18,6 +21,9 @@ public final class Json {
     }
 
     public static <T> T fromJson(String json, Class<T> objType) {
+        if(json == null) {
+            return null;
+        }
         try {
             return MAPPER.readValue(json, objType);
         } catch (JsonProcessingException e) {
