@@ -21,4 +21,4 @@ create table if not exists shop.shop_order (
 	status		varchar(64)		not null
 );
 create unique index if not exists shop_oder_primary_key on shop.shop_order(order_id);
-create unique index if not exists shop_oder_user_id_idx on shop.shop_order(user_id);
+create index if not exists shop_oder_user_id_idx on shop.shop_order(user_id);
